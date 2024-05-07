@@ -11,28 +11,19 @@ import com.google.firebase.auth.FirebaseAuth
 
 
 class SingInActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivitySingInBinding
     private lateinit var firebaseAuth: FirebaseAuth
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Thread.sleep(3000)
         installSplashScreen()
-
         binding = ActivitySingInBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         firebaseAuth = FirebaseAuth.getInstance()
-
         binding.singInBtn.setOnClickListener {
             val intent = Intent(this,MainActivity::class.java)
-
-
             val email = binding.teEmail.text.toString()
             val pass = binding.tePass.text.toString()
-
             if (email.isEmpty() or pass.isEmpty()){
                 Toast.makeText(this,"Verifica la entrada",Toast.LENGTH_SHORT).show()
             }else{
@@ -43,22 +34,13 @@ class SingInActivity : AppCompatActivity() {
                         Toast.makeText(this,"Datos Incorrectos",Toast.LENGTH_SHORT).show()
                     }
                 }
-
-
-
-
-
             }
-
-
         }
 
         binding.textView3.setOnClickListener{
             val intent = Intent(this,SingUpActivity::class.java)
             startActivity(intent)
         }
-
-
     }
 
     override fun onStop() {
