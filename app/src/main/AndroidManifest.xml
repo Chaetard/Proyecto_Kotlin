@@ -28,6 +28,35 @@
             android:name=".MainActivity"
             android:exported="true" />
         <activity
+            android:name=".ActivityMatematicas"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityCiencias"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityEducacionFisica"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityEspanol"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityHistoria"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityEtica"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityGeografia"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityTutorias"
+            android:exported="true" />
+        <activity
+            android:name=".ActivityMensaje"
+            android:exported="true" />
+
+
+        <activity
             android:name=".SingInActivity"
             android:exported="true">
             <intent-filter>

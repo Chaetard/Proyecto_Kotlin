@@ -1,96 +1,110 @@
 package com.example.loginejemplo
 
-import android.app.DatePickerDialog
-import android.app.DatePickerDialog.OnDateSetListener
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.renderscript.ScriptGroup.Binding
-import android.widget.DatePicker
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.loginejemplo.databinding.ActivityMainBinding
-import com.example.loginejemplo.databinding.ActivityMapViewBinding
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
 
 
 
+data class Block(val imageResId: Int, val text: String, val text2: String  )
 
-class MainActivity : AppCompatActivity(), OnMapReadyCallback {
-    private lateinit var map: GoogleMap
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map_view)
-        createFragment()
-    }
-
-    private fun createFragment() {
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        map = googleMap
-        val coordinates = LatLng(20.536842900647425, -103.9682817483684)
-        val marker = MarkerOptions().position(coordinates).title("CUVALLES")
-        map.addMarker(marker)
-        map.animateCamera(
-            CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
-            4000,
-            null
-        )
-    }
-}
-
-
-    /*
-    *
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val calendario = Calendar.getInstance()
-        val fecha = DatePickerDialog.OnDateSetListener { datepicker, year, month, day ->
-            calendario.set(Calendar.YEAR, year)
-            calendario.set(Calendar.MONTH, month)
-            calendario.set(Calendar.DAY_OF_MONTH, day)
-            actualizarFecha(calendario)
-        }
-        binding.fechaBtn.setOnClickListener {
-            DatePickerDialog(
-                this,
-                fecha,
-                calendario.get(Calendar.YEAR),
-                calendario.get(Calendar.MONTH),
-                calendario.get(Calendar.DAY_OF_MONTH)
-            ).show()
-        }
 
-        binding.mapaVinculo.setOnClickListener {
-            val intent = Intent(this, MapaView::class.java)
-            startActivity(intent)
-        }
+        val blocks = listOf(
+            Block(R.drawable.math, "Matematicas", "PROMEDIO: 91"),
+            Block(R.drawable.espanol, "Español", "PROMEDIO: 82"),
+            Block(R.drawable.atom, "Ciencias", "PROMEDIO: 70"),
+            Block(R.drawable.brain, "Educacion Fisica", "PROMEDIO: 100"),
+            Block(R.drawable.globe, "Geografia", "PROMEDIO: 88"),
+            Block(R.drawable.teacher, "Etica", "PROMEDIO: 97"),
+            Block(R.drawable.books, "Historia", "PROMEDIO: 71"),
+            Block(R.drawable.pupil, "Tutorias", "PROMEDIO: 96")
+        )
 
+        val adapter = BlocksAdapter(blocks, object : BlocksAdapter.OnItemClickListener {
+            override fun onItemClick(position: Int) {
+                val block = blocks[position]
+                when (block.text) {
+                    "Matematicas" -> {
+                        val intent = Intent(this@MainActivity, ActivityMatematicas::class.java)
+                        startActivity(intent)
+                    }
+                    "Español" -> {
+                        val intent = Intent(this@MainActivity, ActivityEspanol::class.java)
+                        startActivity(intent)
+                    }
+                    "Ciencias" -> {
+                        val intent = Intent(this@MainActivity, ActivityCiencias::class.java)
+                        startActivity(intent)
+                    }
+                    "Educacion Fisica" -> {
+                        val intent = Intent(this@MainActivity, ActivityEducacionFisica::class.java)
+                        startActivity(intent)
+                    }
+                    "Geografia" -> {
+                        val intent = Intent(this@MainActivity, ActivityGeografia::class.java)
+                        startActivity(intent)
+                    }
+                    "Etica" -> {
+                        val intent = Intent(this@MainActivity, ActivityEtica::class.java)
+                        startActivity(intent)
+                    }
+                    "Historia" -> {
+                        val intent = Intent(this@MainActivity, ActivityHistoria::class.java)
+                        startActivity(intent)
+                    }
+                    "Tutorias" -> {
+                        val intent = Intent(this@MainActivity, ActivityTutorias::class.java)
+                        startActivity(intent)
+                    }
 
+                }
+            }
+        })
+
+        binding.recyclerViewTareas.layoutManager = LinearLayoutManager(this)
+        binding.recyclerViewTareas.adapter = adapter
     }
+}
 
 
-    private fun actualizarFecha(calendar: Calendar) {
-        val formatoDecha = "dd-MM-yyyy"
-        val formatoSimple = SimpleDateFormat(formatoDecha, Locale.ENGLISH)
+/*
 
-        binding.textView2.text = formatoSimple.format(calendar.time)
-    }
-    *
-    * */
+private lateinit var map: GoogleMap
+
+override fun onCreate(savedInstanceState: Bundle?) {
+super.onCreate(savedInstanceState)
+setContentView(R.layout.activity_map_view)
+createFragment()
+}
+
+private fun createFragment() {
+val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+mapFragment.getMapAsync(this)
+}
+
+override fun onMapReady(googleMap: GoogleMap) {
+map = googleMap
+val coordinates = LatLng(20.536842900647425, -103.9682817483684)
+val marker = MarkerOptions().position(coordinates).title("CUVALLES")
+map.addMarker(marker)
+map.animateCamera(
+    CameraUpdateFactory.newLatLngZoom(coordinates, 18f),
+    4000,
+    null
+)
+}
+}
+*/
 
 
 
